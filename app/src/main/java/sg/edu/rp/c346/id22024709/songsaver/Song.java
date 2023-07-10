@@ -1,6 +1,8 @@
 package sg.edu.rp.c346.id22024709.songsaver;
 
-public class Song {
+import java.io.Serializable;
+
+public class Song implements Serializable {
 
     private int _id;
     private String title;
@@ -8,7 +10,7 @@ public class Song {
     private int year;
     private int stars;
 
-    public Song (String title, String singers, int year, int stars){
+    public Song  (String title, String singers, int year, int stars){
         this.title = title;
         this.singers = singers;
         this.year = year;

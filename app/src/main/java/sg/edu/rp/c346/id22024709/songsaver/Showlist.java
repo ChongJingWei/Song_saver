@@ -15,8 +15,8 @@ public class Showlist extends AppCompatActivity {
 
     ListView songList;
     Button btnReturn;
+    ArrayList<String> songListAl;
     ArrayList<Song> songal;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,11 +26,15 @@ public class Showlist extends AppCompatActivity {
         btnReturn = findViewById(R.id.btnReturn);
 
         Intent intentrec = getIntent();
-        Bundle args = intentrec.getBundleExtra("BUNDLE");
-        songal = (ArrayList<Song>) args.getSerializable("ARRAYLIST");
-        ArrayAdapter aaSong =  new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,songal);
+        songal = (ArrayList<Song>) intentrec.getSerializableExtra("ARRAYLIST");
+        songListAl = new ArrayList<>(); // Initialize songListAl here
+        for (int i = 0; i < songal.size(); i++) {
+            songListAl.add("Title: " + songal.get(i).getTitle() + "\nSingers: " + songal.get(i).getSingers() + "\nYear: " + songal.get(i).getYear() + "\nStars: " + songal.get(i).getStar());
+        }
+        ArrayAdapter<String> aaSong = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, songListAl);
         songList.setAdapter(aaSong);
         aaSong.notifyDataSetChanged();
+
 
 
         btnReturn.setOnClickListener(new View.OnClickListener() {

@@ -79,9 +79,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DBHelper db = new DBHelper(MainActivity.this);
                 Intent display = new Intent(MainActivity.this, Showlist.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("ARRAYLIST",(Serializable)songal);
-                display.putExtra("alPass",bundle);
+                display.putExtra("ARRAYLIST", songal);
                 startActivity(display);
             }
         });
