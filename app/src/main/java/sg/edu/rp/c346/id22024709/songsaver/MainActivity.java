@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         insert.setOnClickListener(new View.OnClickListener() {
 
-//Comment cause i dunno if the commit properly worked
+
             @Override
             public void onClick(View v) {
                 int starz;
