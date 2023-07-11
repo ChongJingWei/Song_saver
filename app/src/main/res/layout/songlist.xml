@@ -16,5 +16,12 @@
         android:id="@+id/btnReturn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="RETURN" />
+        android:text="@string/back" />
+
+    <ToggleButton
+        android:id="@+id/toggleFive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:text="@string/show5" />
 </LinearLayout>

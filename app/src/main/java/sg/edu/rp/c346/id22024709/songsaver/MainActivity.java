@@ -66,11 +66,20 @@ public class MainActivity extends AppCompatActivity {
 
                 DBHelper db = new DBHelper(MainActivity.this);
                 Song newSong = new Song (teTitle.getText().toString(), teSinger.getText().toString(), Integer.parseInt(teYear.getText().toString()),starz);
-                db.insertSong(teTitle.getText().toString(), teSinger.getText().toString(), Integer.parseInt(teYear.getText().toString()),starz);
-                songal.add(newSong);
+                String data_title = teTitle.getText().toString();
+                String data_singers = teSinger.getText().toString();
+                int data_year = Integer.parseInt(teYear.getText().toString());
+                int data_star = starz;
+                long inserted_id = db.insertSong(data_title, data_singers, data_year,data_star);
+                if (inserted_id != -1){
+                    songal.clear();
+                    songal.addAll(db.getSong());
+                    aaSong.notifyDataSetChanged();
+                }
                 teTitle.setText("");
                 teSinger.setText("");
-                teYear.setText("");
+                teYear.setText(null);
+                rgStars.clearCheck();
             }
         });
 

@@ -3,9 +3,12 @@ package sg.edu.rp.c346.id22024709.songsaver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,10 +16,13 @@ import java.util.ArrayList;
 
 public class Showlist extends AppCompatActivity {
 
+    private static final int EDIT_REQUEST_CODE = 1;
     ListView songList;
     Button btnReturn;
     ArrayList<String> songListAl;
     ArrayList<Song> songal;
+    ArrayAdapter<Song> aaSong;
+    ToggleButton toggleFive;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,27 +30,60 @@ public class Showlist extends AppCompatActivity {
 
         songList = findViewById(R.id.songList);
         btnReturn = findViewById(R.id.btnReturn);
+        toggleFive = findViewById(R.id.toggleFive);
 
         Intent intentrec = getIntent();
         songal = (ArrayList<Song>) intentrec.getSerializableExtra("ARRAYLIST");
-        songListAl = new ArrayList<>(); // Initialize songListAl here
-        for (int i = 0; i < songal.size(); i++) {
-            songListAl.add("Title: " + songal.get(i).getTitle() + "\nSingers: " + songal.get(i).getSingers() + "\nYear: " + songal.get(i).getYear() + "\nStars: " + songal.get(i).getStar());
-        }
-        ArrayAdapter<String> aaSong = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, songListAl);
+//        songListAl = new ArrayList<>(); // Initialize songListAl here
+//        for (int i = 0; i < songal.size(); i++) {
+//            songListAl.add("Title: " + songal.get(i).getTitle() + "\nSingers: " + songal.get(i).getSingers() + "\nYear: " + songal.get(i).getYear() + "\nStars: " + songal.get(i).getStar());
+//        }
+        aaSong = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, songal);
         songList.setAdapter(aaSong);
         aaSong.notifyDataSetChanged();
 
-
+        toggleFive.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                DBHelper db = new DBHelper(Showlist.this);
+                if (isChecked){
+                    aaSong.clear();
+                    aaSong.addAll(db.getSong(5));
+                } else {
+                    aaSong.clear();
+                    aaSong.addAll(db.getSong());
+                }
+                aaSong.notifyDataSetChanged();
+            }
+        });
 
         btnReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent back = new Intent(Showlist.this, MainActivity.class);
-                startActivity(back);
+                finish();
+            }
+        });
+
+        songList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DBHelper db = new DBHelper(Showlist.this);
+                Intent passSong = new Intent(Showlist.this,EditActivity.class);
+                passSong.putExtra("position",position);
+                passSong.putExtra("alPass",songal.get(position));
+                startActivityForResult(passSong, EDIT_REQUEST_CODE);
             }
         });
     }
 
+    @Override protected void onResume() {
+        super.onResume();
 
+        DBHelper db = new DBHelper(Showlist.this);
+        ArrayList<Song> updatedSongList = db.getSong();
+        songal.clear();
+        songal.addAll(updatedSongList);
+        aaSong.notifyDataSetChanged();
+        db.close();
+    }
 }

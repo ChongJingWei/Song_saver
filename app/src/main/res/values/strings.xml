@@ -8,5 +8,9 @@
     <string name="enterYear">Enter year of release here</string>
     <string name="stars">Stars</string>
     <string name="stardf">*If unselected, defaulted to one star.</string>
-
+    <string name="update">UPDATE</string>
+    <string name="delete">DELETE</string>
+    <string name="cancel">CANCEL</string>
+    <string name="back">RETURN</string>
+    <string name="show5">SHOW ALL SONGS WITH FIVE STARS</string>
 </resources>

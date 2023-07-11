@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvTitle2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/song"
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/teTitle"
+        android:id="@+id/teTitle2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -24,14 +22,14 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/tvSinger"
+        android:id="@+id/tvSinger2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/singer"
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/teSinger"
+        android:id="@+id/teSinger2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -40,14 +38,15 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/tvYear"
+        android:id="@+id/tvYear2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/year"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        />
 
     <EditText
-        android:id="@+id/teYear"
+        android:id="@+id/teYear2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -55,16 +54,15 @@
         android:inputType="number"
         android:textSize="20sp" />
 
-
     <TextView
-        android:id="@+id/tvStar"
+        android:id="@+id/tvStar2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/stars"
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/starsdf"
+        android:id="@+id/starsdf2"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:text="@string/stardf"
@@ -112,28 +110,43 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5" />
+
         </RadioGroup>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/editing"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/update" />
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/delete" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/insert"
-            android:layout_width="match_parent"
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="INSERT" />
-
-        <Button
-            android:id="@+id/showList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="SHOW LIST" />
+            android:text="@string/cancel" />
     </LinearLayout>
 
 </LinearLayout>

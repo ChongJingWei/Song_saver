@@ -24,6 +24,9 @@
         <activity
             android:name=".Showlist"
             android:exported="true" />
+        <activity
+            android:name=".EditActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
