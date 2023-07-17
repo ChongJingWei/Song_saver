@@ -57,7 +57,7 @@ public class Showlist extends AppCompatActivity {
         songList.setAdapter(customAdapter);
         customAdapter.notifyDataSetChanged();
         yearList = db.getDistYears();
-        yearAa = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item);
+        yearAa = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,yearList);
         yearSpin.setAdapter(yearAa);
 
         toggleFive.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -96,7 +96,7 @@ public class Showlist extends AppCompatActivity {
 //                        customAdapter.clear();
 //                        customAdapter.addAll(db.getSongYear(2015));
 //                        break;
-                    
+
                     if (position >= 0 && position < yearList.size()) {
                         int year = yearList.get(position);
                         customAdapter.clear();
