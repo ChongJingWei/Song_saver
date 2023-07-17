@@ -60,6 +60,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
         // Close the database connection
         db.close();
+        Log.d("SQL Insert","ID:"+ result); //id returned, shouldn’t be -1
         return result;
     }
 
@@ -99,12 +100,12 @@ public class DBHelper extends SQLiteOpenHelper{
 
         if (cursor.moveToFirst()) {
             do {
-
+                int _id = cursor.getInt(0);
                 String title = cursor.getString(1);
                 String singers = cursor.getString(2);
                 int year = Integer.parseInt(cursor.getString(3));
                 int stars = Integer.parseInt(cursor.getString(4));
-                Song obj = new Song(title, singers, year, stars);
+                Song obj = new Song(_id, title, singers, year, stars);
                 tasks.add(obj);
             } while (cursor.moveToNext());
         }
@@ -122,11 +123,12 @@ public class DBHelper extends SQLiteOpenHelper{
 
         if (cursor.moveToFirst()) {
             do {
+                int _id = cursor.getInt(0);
                 String title = cursor.getString(1);
                 String singers = cursor.getString(2);
                 int year = cursor.getInt(3);
                 int songStars = cursor.getInt(4);
-                Song song = new Song(title, singers, year, songStars);
+                Song song = new Song(_id, title, singers, year, songStars);
                 songs.add(song);
             } while (cursor.moveToNext());
         }

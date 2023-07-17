@@ -3,6 +3,7 @@ package sg.edu.rp.c346.id22024709.songsaver;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -83,7 +84,11 @@ public class EditActivity extends AppCompatActivity {
                     starz=1;
                 }
                 data.setStars(starz);
-                db.updateSong(data);
+
+
+                int updateResult = db.updateSong(data);
+                Log.d("EditActivity", "Update result: " + updateResult);
+
                 db.close();
                 setResult(Activity.RESULT_OK);
                 finish();

@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 DBHelper db = new DBHelper(MainActivity.this);
-                Song newSong = new Song (teTitle.getText().toString(), teSinger.getText().toString(), Integer.parseInt(teYear.getText().toString()),starz);
                 String data_title = teTitle.getText().toString();
                 String data_singers = teSinger.getText().toString();
                 int data_year = Integer.parseInt(teYear.getText().toString());
@@ -88,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DBHelper db = new DBHelper(MainActivity.this);
                 Intent display = new Intent(MainActivity.this, Showlist.class);
-                display.putExtra("ARRAYLIST", songal);
                 startActivity(display);
             }
         });

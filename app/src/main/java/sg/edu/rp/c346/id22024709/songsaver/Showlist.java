@@ -1,7 +1,9 @@
 package sg.edu.rp.c346.id22024709.songsaver;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.ToggleButton;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -33,7 +36,9 @@ public class Showlist extends AppCompatActivity {
         toggleFive = findViewById(R.id.toggleFive);
 
         Intent intentrec = getIntent();
-        songal = (ArrayList<Song>) intentrec.getSerializableExtra("ARRAYLIST");
+        DBHelper db = new DBHelper(Showlist.this);
+
+        songal = db.getSong();
 //        songListAl = new ArrayList<>(); // Initialize songListAl here
 //        for (int i = 0; i < songal.size(); i++) {
 //            songListAl.add("Title: " + songal.get(i).getTitle() + "\nSingers: " + songal.get(i).getSingers() + "\nYear: " + songal.get(i).getYear() + "\nStars: " + songal.get(i).getStar());
@@ -81,9 +86,23 @@ public class Showlist extends AppCompatActivity {
 
         DBHelper db = new DBHelper(Showlist.this);
         ArrayList<Song> updatedSongList = db.getSong();
+        Log.d("Showlist", "Updated song list size: " + updatedSongList.size());
         songal.clear();
         songal.addAll(updatedSongList);
         aaSong.notifyDataSetChanged();
         db.close();
     }
-}
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+
+            DBHelper db = new DBHelper(Showlist.this);
+            songal.clear();
+            songal.addAll(db.getSong());
+            aaSong.notifyDataSetChanged();
+            db.close();
+        }
+    }
+    }
