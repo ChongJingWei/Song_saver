@@ -52,7 +52,7 @@ public class Song implements Serializable {
         this.stars = stars;
     }
     public String toString() {
-        return "Title: " + title + "\n" + singers + " - " + year + "\n" + ("*".repeat(stars));
+        return "Title: " + title + "\n" + singers + " - " + year + "\n" + ("★".repeat(stars));
     }
 
 

@@ -10,12 +10,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.ToggleButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Showlist extends AppCompatActivity {
 
@@ -26,6 +28,11 @@ public class Showlist extends AppCompatActivity {
     ArrayList<Song> songal;
     ArrayAdapter<Song> aaSong;
     ToggleButton toggleFive;
+    CustomAdapter customAdapter;
+    Spinner yearSpin;
+    ArrayList<Integer> yearList;
+    ArrayAdapter<Integer> yearAa;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +41,8 @@ public class Showlist extends AppCompatActivity {
         songList = findViewById(R.id.songList);
         btnReturn = findViewById(R.id.btnReturn);
         toggleFive = findViewById(R.id.toggleFive);
+        yearSpin = findViewById(R.id.yearSpin);
+
 
         Intent intentrec = getIntent();
         DBHelper db = new DBHelper(Showlist.this);
@@ -43,23 +52,63 @@ public class Showlist extends AppCompatActivity {
 //        for (int i = 0; i < songal.size(); i++) {
 //            songListAl.add("Title: " + songal.get(i).getTitle() + "\nSingers: " + songal.get(i).getSingers() + "\nYear: " + songal.get(i).getYear() + "\nStars: " + songal.get(i).getStar());
 //        }
-        aaSong = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, songal);
-        songList.setAdapter(aaSong);
-        aaSong.notifyDataSetChanged();
+//        aaSong = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, songal);
+        customAdapter = new CustomAdapter(this, R.layout.row, songal);
+        songList.setAdapter(customAdapter);
+        customAdapter.notifyDataSetChanged();
+        yearList = db.getDistYears();
+        yearAa = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item);
+        yearSpin.setAdapter(yearAa);
 
         toggleFive.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 DBHelper db = new DBHelper(Showlist.this);
                 if (isChecked){
-                    aaSong.clear();
-                    aaSong.addAll(db.getSong(5));
+                    customAdapter.clear();
+                    customAdapter.addAll(db.getSong(5));
                 } else {
-                    aaSong.clear();
-                    aaSong.addAll(db.getSong());
+                    customAdapter.clear();
+                    customAdapter.addAll(db.getSong());
                 }
-                aaSong.notifyDataSetChanged();
+                customAdapter.notifyDataSetChanged();
             }
+        });
+        yearSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                DBHelper db = new DBHelper(Showlist.this);
+
+
+//                    case 0:
+//                        customAdapter.clear();
+//                        customAdapter.addAll(db.getSong());
+//                        break;
+//                    case 1:
+//                        customAdapter.clear();
+//                        customAdapter.addAll(db.getSongYear(1998));
+//                        break;
+//                    case 2:
+//                        customAdapter.clear();
+//                        customAdapter.addAll(db.getSongYear(2002));
+//                        break;
+//                    case 3:
+//                        customAdapter.clear();
+//                        customAdapter.addAll(db.getSongYear(2015));
+//                        break;
+                    
+                    if (position >= 0 && position < yearList.size()) {
+                        int year = yearList.get(position);
+                        customAdapter.clear();
+                        customAdapter.addAll(db.getSongYear(year));
+                    }
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+
         });
 
         btnReturn.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +138,7 @@ public class Showlist extends AppCompatActivity {
         Log.d("Showlist", "Updated song list size: " + updatedSongList.size());
         songal.clear();
         songal.addAll(updatedSongList);
-        aaSong.notifyDataSetChanged();
+        customAdapter.notifyDataSetChanged();
         db.close();
     }
     @Override
@@ -101,7 +150,7 @@ public class Showlist extends AppCompatActivity {
             DBHelper db = new DBHelper(Showlist.this);
             songal.clear();
             songal.addAll(db.getSong());
-            aaSong.notifyDataSetChanged();
+            customAdapter.notifyDataSetChanged();
             db.close();
         }
     }

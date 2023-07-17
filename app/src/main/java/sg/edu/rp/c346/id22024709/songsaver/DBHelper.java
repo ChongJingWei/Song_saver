@@ -137,6 +137,57 @@ public class DBHelper extends SQLiteOpenHelper{
         db.close();
         return songs;
     }
+
+    public ArrayList<Song> getSongYear(int yearz) {
+        ArrayList<Song> songs = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_ID, COLUMN_TITLE, COLUMN_SINGERS, COLUMN_YEAR, COLUMN_STARS};
+        String selection = COLUMN_YEAR + " = ?";
+        String[] selectionArgs = {String.valueOf(yearz)};
+        Cursor cursor = db.query(TABLE_SONGS, columns, selection, selectionArgs, null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                int _id = cursor.getInt(0);
+                String title = cursor.getString(1);
+                String singers = cursor.getString(2);
+                int year = cursor.getInt(3);
+                int songStars = cursor.getInt(4);
+                Song song = new Song(_id, title, singers, year, songStars);
+                songs.add(song);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return songs;
+    }
+
+    public ArrayList<Integer> getDistYears() {
+        ArrayList<Integer> years = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_YEAR};
+        String groupBy = COLUMN_YEAR;
+        String orderBy = COLUMN_YEAR + " DESC";
+        Cursor cursor = db.query(true, TABLE_SONGS, columns, null, null, groupBy, null, orderBy, null);
+
+        if (cursor.moveToFirst()) {
+            int columnIndex = cursor.getColumnIndex(COLUMN_YEAR);
+            if (columnIndex >= 0) {
+                do {
+                    int year = cursor.getInt(columnIndex);
+                    years.add(year);
+                } while (cursor.moveToNext());
+            }
+        }
+
+        cursor.close();
+        db.close();
+        return years;
+    }
+
+
+
     public int updateSong(Song data){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();

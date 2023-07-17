@@ -14,4 +14,12 @@
     <string name="back">RETURN</string>
     <string name="show5">SHOW ALL SONGS WITH FIVE STARS</string>
     <string name="showN">SHOW ALL SONGS</string>
+
+
+    <string-array name="spinnerItems">
+        <item>All</item>
+        <item>1998</item>
+        <item>2002</item>
+        <item>2015</item>
+    </string-array>
 </resources>

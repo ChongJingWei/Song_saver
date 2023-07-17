@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <ToggleButton
+        android:id="@+id/toggleFive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.001"
+        android:text="@string/show5"
+        android:textOff="@string/show5"
+        android:textOn="@string/showN" />
+
+    <Spinner
+        android:id="@+id/yearSpin"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_weight="0.009"
+
+        android:entries="@array/spinnerItems" />
 
     <ListView
         android:id="@+id/songList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="8">
 
     </ListView>
 
@@ -16,14 +34,7 @@
         android:id="@+id/btnReturn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.001"
         android:text="@string/back" />
 
-    <ToggleButton
-        android:id="@+id/toggleFive"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:text="@string/show5"
-        android:textOff="@string/show5"
-        android:textOn="@string/showN" />
 </LinearLayout>
