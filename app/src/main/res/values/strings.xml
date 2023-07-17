@@ -13,8 +13,8 @@
     <string name="cancel">CANCEL</string>
     <string name="back">RETURN</string>
     <string name="show5">SHOW ALL SONGS WITH FIVE STARS</string>
-    <string name="showN">SHOW ALL SONGS</string>
-
+    <string name="showN">SHOW SONGS</string>
+    <string name="showall">SHOW ALL SONGS</string>
 
     <string-array name="spinnerItems">
         <item>All</item>

@@ -23,7 +23,7 @@ public class Showlist extends AppCompatActivity {
 
     private static final int EDIT_REQUEST_CODE = 1;
     ListView songList;
-    Button btnReturn;
+    Button btnReturn, btnReset;
     ArrayList<String> songListAl;
     ArrayList<Song> songal;
     ArrayAdapter<Song> aaSong;
@@ -42,7 +42,7 @@ public class Showlist extends AppCompatActivity {
         btnReturn = findViewById(R.id.btnReturn);
         toggleFive = findViewById(R.id.toggleFive);
         yearSpin = findViewById(R.id.yearSpin);
-
+        btnReset = findViewById(R.id.btnReset);
 
         Intent intentrec = getIntent();
         DBHelper db = new DBHelper(Showlist.this);
@@ -106,9 +106,19 @@ public class Showlist extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                DBHelper db = new DBHelper(Showlist.this);
+                customAdapter.clear();
+                customAdapter.addAll(db.getSong());
             }
 
+        });
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DBHelper db = new DBHelper(Showlist.this);
+                customAdapter.clear();
+                customAdapter.addAll(db.getSong());
+            }
         });
 
         btnReturn.setOnClickListener(new View.OnClickListener() {

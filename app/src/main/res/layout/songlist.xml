@@ -14,6 +14,13 @@
         android:textOff="@string/show5"
         android:textOn="@string/showN" />
 
+    <Button
+        android:id="@+id/btnReset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.001"
+        android:text="@string/showall" />
+
     <Spinner
         android:id="@+id/yearSpin"
         android:layout_width="match_parent"
